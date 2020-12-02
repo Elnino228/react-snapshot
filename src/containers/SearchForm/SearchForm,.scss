@@ -1,0 +1,30 @@
+$border-control-size: 3px;
+$border-control-color: #d7dbdf;
+
+.search-form {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  input {
+    box-sizing: border-box;
+    font-size: 1rem;
+    width: 30%;
+    padding: 8px 16px;
+    border: $border-control-size solid $border-control-color;
+    border-radius: 5px 0 0 5px;
+  }
+  button {
+    box-sizing: border-box;
+    border-style: solid;
+    border-color: $border-control-color;
+    border-width: $border-control-size $border-control-size $border-control-size 0;
+    border-radius: 0 5px 5px 0;
+    //background: white;
+
+  }
+  //.active {
+  //  border-color: $border-control-color;
+  //  background: #ffffff;
+  //  cursor: pointer;
+  //}
+}
