@@ -5,26 +5,32 @@ $border-control-color: #d7dbdf;
   display: flex;
   flex-direction: row;
   justify-content: center;
+
   input {
     box-sizing: border-box;
     font-size: 1rem;
     width: 30%;
     padding: 8px 16px;
-    border: $border-control-size solid $border-control-color;
+    border-style: solid;
+    border-color: $border-control-color;
+    border-width: $border-control-size 0 $border-control-size $border-control-size;
     border-radius: 5px 0 0 5px;
+    outline: none;
   }
+
   button {
     box-sizing: border-box;
     border-style: solid;
     border-color: $border-control-color;
     border-width: $border-control-size $border-control-size $border-control-size 0;
     border-radius: 0 5px 5px 0;
-    //background: white;
+    background: white;
 
   }
-  //.active {
-  //  border-color: $border-control-color;
-  //  background: #ffffff;
-  //  cursor: pointer;
-  //}
+
+  .active {
+    border-color: $border-control-color;
+    background: #c4c4c4;
+    cursor: pointer;
+  }
 }
