@@ -4,17 +4,25 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
     padding: 0;
     list-style-type: none;
-
     a {
+      display: block;
       text-decoration: none;
       padding: 4px 16px;
       width: 100px;
       background-color: #23327c;
       color: white;
-      margin: 0 10px;
+      margin: 5px 10px;
       border-radius: 4px;
+    }
+  }
+}
+@media only screen and (max-width: 500px) {
+  .navigator {
+    ul {
+      flex-direction: column;
     }
   }
 }
