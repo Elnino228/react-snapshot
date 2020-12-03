@@ -5,17 +5,16 @@
     justify-content: center;
     align-items: center;
     padding: 0;
-    li {
-      display: flex;
-      a {
-        text-decoration: none;
-        padding: 4px 16px;
-        width: 100px;
-        background-color: #23327c;
-        color: white;
-        margin: 0 10px;
-        border-radius: 4px;
-      }
+    list-style-type: none;
+
+    a {
+      text-decoration: none;
+      padding: 4px 16px;
+      width: 100px;
+      background-color: #23327c;
+      color: white;
+      margin: 0 10px;
+      border-radius: 4px;
     }
   }
 }
