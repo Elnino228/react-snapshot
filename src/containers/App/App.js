@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Header from "../Header/Header";
 import SearchForm from "../SearchForm/SearchForm";
 import './App.scss'
@@ -8,8 +8,35 @@ import Container from "../Container/Container";
 import NotFound from "../NotFound/NotFound";
 import PhotoContextProvider from "../../context/PhotoContext";
 
+function Test() {
+    const [content, setContent] = useState({t: 1});
+    useEffect(() => {
+        console.log(content)
+        // setContent('is mount')
+    });
+    useEffect(() => {
+        console.log(content)
+        // setContent('is mount')
+    }, []);
+    useEffect(() => {
+        console.log(content)
+        // setContent('is mount')
+    }, [content]);
+
+    const handleChange = () => {
+        setContent(content => {content.t = 2; return content})
+    };
+    return (
+        <div>
+            <button onClick={handleChange}>{content.t}</button>
+        </div>
+
+    )
+}
+
 export default function App() {
     return (
+        // <Test/>
         <PhotoContextProvider>
             <div className={'app'}>
                 <BrowserRouter basename={'snapshot'}>
