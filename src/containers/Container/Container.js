@@ -56,11 +56,11 @@ export default function Container({keySearch}) {
 
     return (
         <div className={'container'}>
-            <Header title={'Snapshot'}/>
+            <Header/>
             <SearchForm/>
             <Navigator/>
             <h2>{keySearch} Pictures</h2>
-            {loading ? <Loader/> : <Gallery data={images}/>}
+            {<Gallery data={images}/>}
         </div>
     )
 }

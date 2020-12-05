@@ -1,8 +1,56 @@
 .header {
-  padding-top: 1rem;
   h1 {
-    font-family: "Lobster", "Josefin Sans", Helvetica, Arial, sans-serif;
+    font-family: 'MuseoModerno', cursive, Helvetica, Arial, sans-serif;
     font-size: calc(6vw + 50px);
+    margin: 5vh 0;
     color: #051c33;
+  }
+  .switch {
+    display: block;
+    position: relative;
+    width: 60px;
+    height: 34px;
+    .toggle-button {
+      display: block;
+      width: 0;
+      height: 0;
+      opacity: 0;
+      &:checked {
+        + .slider {
+          background-color: #2196F3;
+        }
+        + .slider::before {
+          transform: translateX(26px);
+        }
+      }
+    }
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      background-color: #ccc;
+      -webkit-transition: .4s;
+      transition: .4s;
+      &.round {
+        border-radius: 34px;
+        &::before {
+          border-radius: 50%;
+        }
+      }
+      &::before {
+        position: absolute;
+        content: "";
+        top: 4px;
+        left: 4px;
+        width: 26px;
+        height: 26px;
+        background-color: white;
+        -webkit-transition: .4s;
+        transition: .4s;
+      }
+    }
   }
 }

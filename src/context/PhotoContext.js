@@ -10,6 +10,7 @@ const PhotoContextProvider = props => {
     const [keySearch, setKeySearch] = useState('mountain');
     const runSearch = (query, page = 1, perPage = 24) => {
         console.log(query, page);
+        setLoading(true);
         axios
             .get(
                 `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=${query}&per_page=${perPage}&page=${page}&format=json&nojsoncallback=1`

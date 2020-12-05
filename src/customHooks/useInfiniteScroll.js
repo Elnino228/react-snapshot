@@ -24,7 +24,18 @@ const useInfiniteScroll = (option, funcLoadData) => {
     }, [isFetching]);
 
     const handleScroll = () => {
-        if (window.innerHeight + document.documentElement.scrollTop === document.documentElement.scrollHeight || isFetching) {
+        // const windowHeight = "innerHeight" in window ? window.innerHeight : document.documentElement.offsetHeight;
+        // const body = document.body;
+        // const html = document.documentElement;
+        // const docHeight = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
+        // const windowBottom = windowHeight + window.pageYOffset;
+        console.log(Math.floor(document.documentElement.getBoundingClientRect().bottom))
+        console.log(window.innerHeight)
+        // if (Math.ceil(window.innerHeight + document.documentElement.scrollTop) === document.documentElement.scrollHeight || isFetching) {
+        // if (windowBottom >= docHeight) {
+        if (Math.floor(document.documentElement.getBoundingClientRect().bottom) === window.innerHeight
+            || Math.ceil(document.documentElement.getBoundingClientRect().bottom) === window.innerHeight
+            || isFetching) {
             setPage(page => page + 1);
             setIsFetching(true);
         }

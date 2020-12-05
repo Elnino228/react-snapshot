@@ -7,6 +7,7 @@ import Navigator from "../Navigator/Navigator";
 import Container from "../Container/Container";
 import NotFound from "../NotFound/NotFound";
 import PhotoContextProvider from "../../context/PhotoContext";
+import Loader from "../Loader/Loader";
 
 function Test() {
     const [content, setContent] = useState({t: 1});
@@ -47,6 +48,7 @@ export default function App() {
                     {/*        <Navigator/>*/}
                     {/*    </>*/}
                     {/*)}/>*/}
+                    <Loader/>
                     <Switch>
                         <Route
                             exact

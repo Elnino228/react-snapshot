@@ -1,6 +1,6 @@
 .layout-mask {
   position: fixed; /* Sit on top of the page content */
-  display: block; /* Hidden by default */
+  display: none; /* Hidden by default */
   width: 100%; /* Full width (cover the whole page) */
   height: 100%; /* Full height (cover the whole page) */
   top: 0;
@@ -21,6 +21,16 @@
   animation: spin 1s linear infinite;
   margin-left: auto;
   margin-right: auto;
+  display: none;
+  position: fixed;
+  z-index: 3;
+  &.enable {
+    top: calc(50vh - 60px);
+    left: calc(50vw - 60px);
+  }
+}
+.enable {
+  display: block;
 }
 
 @keyframes spin {
