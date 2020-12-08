@@ -1,10 +1,11 @@
 import React, {useState} from "react";
 import './SearchForm,.scss'
-import {useHistory} from 'react-router-dom';
+import {useHistory, useParams} from 'react-router-dom';
 
 export default function SearchForm(props) {
-    let [input, setInput] = useState('');
-
+    const {keySearch} = useParams();
+    let initialInput = keySearch === null || keySearch === undefined ? '' : keySearch;
+    let [input, setInput] = useState(initialInput);
     let handleOnChange = (e) => {
         setInput(e.target.value);
     };
@@ -25,8 +26,8 @@ export default function SearchForm(props) {
             action="">
             <input type="text" placeholder={'Search ...'} onChange={handleOnChange} value={input}/>
             <button
-                className={input.trim() ? 'active' : ''}
-                disabled={!input.trim()}
+                className={input.trim() || keySearch && keySearch.trim() ? 'active' : ''}
+                disabled={!input.trim() || keySearch && keySearch.trim()}
             >
                 <svg height="32" width="32">
                     <path

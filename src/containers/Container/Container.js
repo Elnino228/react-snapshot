@@ -7,6 +7,8 @@ import Navigator from "../Navigator/Navigator";
 import Gallery from "../Gallery/Gallery";
 import {debounce} from 'debounce';
 import useInfiniteScroll from "../../customHooks/useInfiniteScroll";
+import {Route, Switch, useRouteMatch} from "react-router-dom";
+import DetailImage from "../DetailImage/DetailImage";
 
 export default function Container({keySearch}) {
     let {images, loading, runSearch} = useContext(PhotoContext);
@@ -18,49 +20,23 @@ export default function Container({keySearch}) {
     };
 
     useInfiniteScroll({keySearch, startPage: 1}, loadData);
-
-    // useEffect(() => {
-    //     window.addEventListener('scroll', handleScroll);
-    //     return () => {
-    //         window.removeEventListener('scroll', handleScroll)
-    //     }
-    // }, []);
-
-    // useEffect(() => {
-    //     setPage(1)
-    //     runSearch(keySearch, 1);
-    //     // eslint-disable-next-line
-    // }, [keySearch]);
-
-    // useEffect(() => {
-    //     if (!isFetching) return;
-    //     console.log(page)
-    //     loadMore();
-    // }, [isFetching]);
-    //
-    //
-    // let handleScroll = () => {
-    //     if (Math.ceil(window.innerHeight + document.documentElement.scrollTop) !== document.documentElement.offsetHeight || isFetching) {
-    //         return;
-    //     }
-    //     setPage(page => page + 1);
-    //     setIsFetching(true);
-    // };
-    //
-    // let loadMore = () => {
-    //     runSearch(keySearch, page);
-    //     setIsFetching(false);
-    //
-    // };
-
+    const {path} = useRouteMatch();
 
     return (
         <div className={'container'}>
-            <Header/>
-            <SearchForm/>
-            <Navigator/>
-            <h2>{keySearch} Pictures</h2>
-            {<Gallery data={images}/>}
+            <Switch>
+                <Route
+                    path={`${path}/:imageId`}
+                    render={() => <DetailImage/>}
+                />
+                <Route>
+                    <Header/>
+                    <SearchForm/>
+                    <Navigator/>
+                    <h2>{keySearch} Pictures</h2>
+                    {<Gallery data={images}/>}
+                </Route>
+            </Switch>
         </div>
     )
 }

@@ -1,13 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import Header from "../Header/Header";
-import SearchForm from "../SearchForm/SearchForm";
 import './App.scss'
-import {BrowserRouter, HashRouter, Route, Switch, Redirect} from "react-router-dom";
-import Navigator from "../Navigator/Navigator";
+import {BrowserRouter, Redirect, Route, Switch, useRouteMatch} from "react-router-dom";
 import Container from "../Container/Container";
 import NotFound from "../NotFound/NotFound";
 import PhotoContextProvider from "../../context/PhotoContext";
 import Loader from "../Loader/Loader";
+import {useSelector} from "react-redux";
+import DetailImage from "../DetailImage/DetailImage";
 
 function Test() {
     const [content, setContent] = useState({t: 1});
@@ -25,7 +24,10 @@ function Test() {
     }, [content]);
 
     const handleChange = () => {
-        setContent(content => {content.t = 2; return content})
+        setContent(content => {
+            content.t = 2;
+            return content
+        })
     };
     return (
         <div>
@@ -36,10 +38,11 @@ function Test() {
 }
 
 export default function App() {
+    const theme = useSelector(state => state.theme);
     return (
         // <Test/>
         <PhotoContextProvider>
-            <div className={'app'}>
+            <div className={`app ${theme}`}>
                 <BrowserRouter basename={'snapshot'}>
                     {/*<Route render={props => (*/}
                     {/*    <>*/}
@@ -74,7 +77,6 @@ export default function App() {
                         <Route
                             path={'/search/:keySearch'}
                             render={(props) => {
-                                console.log(props);
                                 return (<Container keySearch={props.match.params.keySearch}/>)
                             }}
                         />
