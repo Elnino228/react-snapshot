@@ -1,10 +1,19 @@
 .header {
-  padding: 1rem 0;
-  h1 {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  //padding: 1rem 0;
+  background-color: black;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 111;
+  .brand-name {
     font-family: 'MuseoModerno', cursive, Helvetica, Arial, sans-serif;
-    font-size: calc(6vw + 50px);
-    margin: 5vh 0;
-    color: #051c33;
+    font-size: 2rem;
+    margin-left: 1rem;
   }
   .toggle-theme {
     display: flex;

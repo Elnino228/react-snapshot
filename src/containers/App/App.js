@@ -7,35 +7,7 @@ import PhotoContextProvider from "../../context/PhotoContext";
 import Loader from "../Loader/Loader";
 import {useSelector} from "react-redux";
 import DetailImage from "../DetailImage/DetailImage";
-
-function Test() {
-    const [content, setContent] = useState({t: 1});
-    useEffect(() => {
-        console.log(content)
-        // setContent('is mount')
-    });
-    useEffect(() => {
-        console.log(content)
-        // setContent('is mount')
-    }, []);
-    useEffect(() => {
-        console.log(content)
-        // setContent('is mount')
-    }, [content]);
-
-    const handleChange = () => {
-        setContent(content => {
-            content.t = 2;
-            return content
-        })
-    };
-    return (
-        <div>
-            <button onClick={handleChange}>{content.t}</button>
-        </div>
-
-    )
-}
+import Header from "../Header/Header";
 
 export default function App() {
     const theme = useSelector(state => state.theme);
@@ -44,14 +16,8 @@ export default function App() {
         <PhotoContextProvider>
             <div className={`app ${theme}`}>
                 <BrowserRouter basename={'snapshot'}>
-                    {/*<Route render={props => (*/}
-                    {/*    <>*/}
-                    {/*        <Header title={'Snapshot'}/>*/}
-                    {/*        <SearchForm {...props}/>*/}
-                    {/*        <Navigator/>*/}
-                    {/*    </>*/}
-                    {/*)}/>*/}
                     <Loader/>
+                    <Header/>
                     <Switch>
                         <Route
                             exact

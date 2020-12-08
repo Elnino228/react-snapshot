@@ -2,6 +2,7 @@ import React, {useContext} from "react";
 import {useParams} from 'react-router-dom';
 import {PhotoContext} from "../../context/PhotoContext";
 import * as Util from "../../Util/Util";
+import './DetailImage.scss'
 
 export default function DetailImage(props) {
     const {imageId} = useParams();
@@ -10,7 +11,7 @@ export default function DetailImage(props) {
     const imageUrl = Util.genImageUrl(image);
     return (
         <div className={'detail-image'}>
-            <img src={imageUrl} alt={image.title}/>
+            <img src={imageUrl} alt={image.title} width={'30%'} height={'500px'}/>
         </div>
     )
 

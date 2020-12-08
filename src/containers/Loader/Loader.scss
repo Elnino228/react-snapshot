@@ -8,7 +8,7 @@
   right: 0;
   bottom: 0;
   background-color: rgba(0,0,0,0.2); /* Black background with opacity */
-  z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+  z-index: 888; /* Specify a stack order in case you're using a different order for other elements */
 }
 .loader {
   border: 16px solid #f3f3f3;
@@ -23,7 +23,7 @@
   margin-right: auto;
   display: none;
   position: fixed;
-  z-index: 3;
+  z-index: 999;
   &.enable {
     top: calc(50vh - 60px);
     left: calc(50vw - 60px);

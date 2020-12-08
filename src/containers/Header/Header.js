@@ -10,14 +10,16 @@ export default function Header() {
     };
     const theme = useSelector(state=>state.theme);
     return (
-        <div className={'header'}>
+        <div className={'header'} style={{backgroundColor: theme === 'light' ? 'black' : 'white'}}>
+            <div className={'brand-name'}>
+                <span style={{color: 'red'}}>Red</span><span style={{color: theme ==='light' ? 'white' : 'black'}}>D store</span>
+            </div>
             <div className={'toggle-theme'}>
                 <label className={'switch'}>
                     <input className={'toggle-button'} type="checkbox" onChange={handleSwitchTheme}/>
                     <span className={'slider round'}/>
                 </label>
             </div>
-            <h1><span style={{color: 'red'}}>Red</span><span style={{color: theme==='light' ? 'black' : 'white'}}>D store</span></h1>
         </div>
     )
 }

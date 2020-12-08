@@ -9,11 +9,10 @@ import {debounce} from 'debounce';
 import useInfiniteScroll from "../../customHooks/useInfiniteScroll";
 import {Route, Switch, useRouteMatch} from "react-router-dom";
 import DetailImage from "../DetailImage/DetailImage";
+import Banner from "../Banner/Banner";
 
 export default function Container({keySearch}) {
     let {images, loading, runSearch} = useContext(PhotoContext);
-    // let [isFetching, setIsFetching] = useState(false);
-    // let [page, setPage] = useState(1);
 
     const loadData = (keySearch, page) => {
         runSearch(keySearch, page);
@@ -30,7 +29,7 @@ export default function Container({keySearch}) {
                     render={() => <DetailImage/>}
                 />
                 <Route>
-                    <Header/>
+                    <Banner/>
                     <SearchForm/>
                     <Navigator/>
                     <h2>{keySearch} Pictures</h2>
