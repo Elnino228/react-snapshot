@@ -8,7 +8,8 @@ const PhotoContextProvider = props => {
     const [images, setImages] = useState([]);
     const [loading, setLoading] = useState(true);
     const [keySearch, setKeySearch] = useState('mountain');
-    const runSearch = (query, page = 1, perPage = 24) => {
+    const service = {};
+    service.runSearch = (query, page = 1, perPage = 24) => {
         console.log(query, page);
         setLoading(true);
         axios
@@ -18,7 +19,7 @@ const PhotoContextProvider = props => {
             .then(response => {
                 if (query == keySearch) {
                     setImages([...images, ...response.data.photos.photo]);
-                }else {
+                } else {
                     setImages(response.data.photos.photo);
                 }
                 setLoading(false);
@@ -31,8 +32,27 @@ const PhotoContextProvider = props => {
                 );
             });
     };
+
+    service.getDetailPhoto = (photoId) => {
+        setLoading(true);
+        return axios
+            .get(
+                `https://api.flickr.com/services/rest/?method=flickr.photos.getSizes&api_key=${apiKey}&photo_id=${photoId}&format=json&nojsoncallback=1`
+            )
+            .then(response => {
+                setLoading(false);
+                return  response.data;
+            })
+            .catch(error => {
+                setLoading(false);
+                console.log(
+                    "Encountered an error with fetching and parsing data",
+                    error
+                );
+            });
+    };
     return (
-        <PhotoContext.Provider value={{images, loading, runSearch}}>
+        <PhotoContext.Provider value={{images, loading, service}}>
             {props.children}
         </PhotoContext.Provider>
     );

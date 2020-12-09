@@ -8,7 +8,10 @@ const useInfiniteScroll = (option, funcLoadData) => {
 
     useEffect(() => {
         window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
+        return () => {
+            console.log('unmount')
+            window.removeEventListener('scroll', handleScroll)
+        };
     }, []);
 
     useEffect(() => {

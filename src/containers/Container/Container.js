@@ -12,10 +12,10 @@ import DetailImage from "../DetailImage/DetailImage";
 import Banner from "../Banner/Banner";
 
 export default function Container({keySearch}) {
-    let {images, loading, runSearch} = useContext(PhotoContext);
+    let {images, loading, service} = useContext(PhotoContext);
 
     const loadData = (keySearch, page) => {
-        runSearch(keySearch, page);
+        service.runSearch(keySearch, page);
     };
 
     useInfiniteScroll({keySearch, startPage: 1}, loadData);
