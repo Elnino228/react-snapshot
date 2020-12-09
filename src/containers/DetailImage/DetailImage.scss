@@ -1,5 +1,13 @@
-.detail-image {
-  img {
-    object-fit: cover;
+.detail-container {
+  display: flex;
+  flex-direction: row;
+  .gallery-side {
+    width: 20%;
+  }
+  .detail-image {
+    width:80%;
+    img {
+      object-fit: cover;
+    }
   }
 }

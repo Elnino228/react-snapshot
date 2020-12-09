@@ -1,24 +1,13 @@
-import React, {useContext, useEffect, useState} from "react";
-import {PhotoContext} from "../../context/PhotoContext";
-import Loader from "../Loader/Loader";
-import Header from "../Header/Header";
+import React from "react";
 import SearchForm from "../SearchForm/SearchForm";
 import Navigator from "../Navigator/Navigator";
 import Gallery from "../Gallery/Gallery";
-import {debounce} from 'debounce';
-import useInfiniteScroll from "../../customHooks/useInfiniteScroll";
 import {Route, Switch, useRouteMatch} from "react-router-dom";
 import DetailImage from "../DetailImage/DetailImage";
 import Banner from "../Banner/Banner";
+import './Container.scss'
 
 export default function Container({keySearch}) {
-    let {images, loading, service} = useContext(PhotoContext);
-
-    const loadData = (keySearch, page) => {
-        service.runSearch(keySearch, page);
-    };
-
-    useInfiniteScroll({keySearch, startPage: 1}, loadData);
     const {path} = useRouteMatch();
 
     return (
@@ -33,7 +22,7 @@ export default function Container({keySearch}) {
                     <SearchForm/>
                     <Navigator/>
                     <h2>{keySearch} Pictures</h2>
-                    {<Gallery data={images}/>}
+                    <Gallery/>
                 </Route>
             </Switch>
         </div>

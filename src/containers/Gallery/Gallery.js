@@ -1,24 +1,32 @@
-import React from "react";
+import React, {useContext} from "react";
 import Image from "../Image/Image";
 import NoImages from "../NoImage/NoImage";
 import './Gallery.scss'
+import {PhotoContext} from "../../context/PhotoContext";
+import useInfiniteScroll from "../../customHooks/useInfiniteScroll";
 
 const Gallery = props => {
-    const results = props.data;
-    let images;
-    let noImages;
-    // map variables to each item in fetched image array and return image component
-    if (results.length > 0) {
-        images = results.map((image, i) => {
-            return  <Image data={image} key={i}/>;
+    let {images, keySearch, service} = useContext(PhotoContext);
+
+    const loadData = (keySearch, page) => {
+        service.runSearch(keySearch, page);
+    };
+
+    useInfiniteScroll({keySearch, startPage: 1}, loadData);
+
+    let imagesNode;
+    let noImagesNode;
+    if (images.length > 0) {
+        imagesNode = images.map((image, i) => {
+            return <Image data={image} key={i}/>;
         });
     } else {
-        noImages = <NoImages/>; // return 'not found' component if no images fetched
+        noImagesNode = <NoImages/>;
     }
     return (
         <div className={'gallery'}>
-            <ul>{images}</ul>
-            {noImages}
+            <ul>{imagesNode}</ul>
+            {noImagesNode}
         </div>
     );
 };

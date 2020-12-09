@@ -4,6 +4,7 @@ import {PhotoContext} from "../../context/PhotoContext";
 import * as Util from "../../Util/Util";
 import './DetailImage.scss'
 import * as Constants from "../../Constants/Constants";
+import Gallery from "../Gallery/Gallery";
 
 export default function DetailImage(props) {
     const {imageId} = useParams();
@@ -36,8 +37,14 @@ export default function DetailImage(props) {
         getDetailPhoto();
     }, [imageUrl]);
     return (
-        <div className={'detail-image'}>
-            <img src={imageUrl} alt={(image && image.title) || ''} width={width} height={height}/>
+
+        <div className={'detail-container'}>
+            <div className={'gallery-side'}>
+                <Gallery />
+            </div>
+            <div className={'detail-image'}>
+                <img src={imageUrl} alt={(image && image.title) || ''} width={width} height={height}/>
+            </div>
         </div>
     )
 
