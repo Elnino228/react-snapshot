@@ -18,6 +18,10 @@ export default function DetailImage(props) {
         return arrData.find(it => it.label === strSize);
     };
 
+    useEffect(()=>{
+        console.log(imageId)
+    })
+
     useEffect(() => {
         const getDetailPhoto = async () => {
             let rs = await service.getDetailPhoto(imageId);
@@ -37,11 +41,11 @@ export default function DetailImage(props) {
         };
 
         getDetailPhoto();
-    }, [imageUrl]);
+    }, [imageId]);
     return (
         <div className={'detail-container'}>
             <div className={'gallery-side'}>
-                <Gallery/>
+                <Gallery data={images}/>
             </div>
             <div className={'detail-image'}>
                 <img src={imageUrl} alt={(image && image.title) || ''} width={width} height={height}/>

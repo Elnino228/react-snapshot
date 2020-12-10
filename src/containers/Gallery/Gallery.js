@@ -6,19 +6,10 @@ import {PhotoContext} from "../../context/PhotoContext";
 import useInfiniteScroll from "../../customHooks/useInfiniteScroll";
 import {useParams} from 'react-router-dom';
 
-const Gallery = props => {
-    let {images, service} = useContext(PhotoContext);
-    const {tag, keySearch} = useParams();
-
-
-    const loadData = (keySearch, page) => {
-        service.runSearch(keySearch, page);
-    };
-
-    useInfiniteScroll({keySearch: keySearch || tag, startPage: 1}, loadData);
-
+const Gallery = (props) => {
     let imagesNode;
     let noImagesNode;
+    let images = props.data;
     if (images.length > 0) {
         imagesNode = images.map((image, i) => {
             return <Image data={image} key={i}/>;

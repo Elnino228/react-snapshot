@@ -20,3 +20,38 @@ body {
 
 
 }
+.btnToTop {
+  display: none;
+  width: 40px;
+  height: 40px;
+  position: fixed;
+  bottom: 50px;
+  right: 60px;
+  background-color: #00000042;
+  margin: 0;
+  padding: 0;
+  border-width: 0;
+  &::after {
+    display: inline-block;
+    content: '';
+    width: 50%;
+    height: 50%;
+    position: relative;
+    top: 8px;
+    left: 0;
+    background-color: transparent;
+    transform: rotate(45deg);
+    border-top: 5px solid white;
+    border-left: 5px solid white;
+  }
+  &:hover {
+    cursor: pointer;
+    background-color: #00000080;
+  }
+}
+.hide {
+  display: none;
+}
+.show {
+  display: block;
+}

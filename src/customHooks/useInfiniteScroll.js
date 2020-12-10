@@ -1,21 +1,24 @@
 import {useEffect, useState} from "react";
 import styles from '../styles/_variables.scss';
+import {useLocation} from 'react-router-dom';
 import $ from 'jquery';
 
 const useInfiniteScroll = (option, funcLoadData) => {
     const {keySearch, startPage} = option;
     const [isFetching, setIsFetching] = useState(false);
     const [page, setPage] = useState(startPage);
+    const {pathname} = useLocation();
+    const [container, setContainer] = useState($('.gallery').parent());
 
     useEffect(() => {
-        $(".gallery").parent().css("overflow", "auto", "height", window.innerHeight - styles.headerHeight);
-        window.addEventListener('scroll', handleScroll);
+        setContainer($('.gallery').parent());
+        container.css({"overflow": "auto", "height": `calc(100vh - ${styles.headerHeight}`});
+        container.scroll(handleScroll);
         return () => {
-            console.log('unmount');
-            $(".gallery").parent().css("overflow", "", "height", `auto`);
-            window.removeEventListener('scroll', handleScroll)
-        };
-    }, []);
+            container.css({"overflow": "", "height": ""});
+            container.off('scroll', handleScroll)
+        }
+    }, [container.get(0), pathname]);
 
     useEffect(() => {
         setPage(startPage);
@@ -30,17 +33,9 @@ const useInfiniteScroll = (option, funcLoadData) => {
     }, [isFetching]);
 
     const handleScroll = () => {
-        // const windowHeight = "innerHeight" in window ? window.innerHeight : document.documentElement.offsetHeight;
-        // const body = document.body;
-        // const html = document.documentElement;
-        // const docHeight = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
-        // const windowBottom = windowHeight + window.pageYOffset;
-        // console.log(Math.floor(document.documentElement.getBoundingClientRect().bottom))
-        // console.log(window.innerHeight)
-        // if (Math.ceil(window.innerHeight + document.documentElement.scrollTop) === document.documentElement.scrollHeight || isFetching) {
-        // if (windowBottom >= docHeight) {
-        if (Math.floor(document.documentElement.getBoundingClientRect().bottom) === window.innerHeight
-            || Math.ceil(document.documentElement.getBoundingClientRect().bottom) === window.innerHeight
+        let element = container.get(0);
+        if (Math.floor(element.scrollHeight - element.scrollTop) === element.clientHeight
+            || Math.ceil(element.scrollHeight - element.scrollTop) === element.clientHeight
             || isFetching) {
             setPage(page => page + 1);
             setIsFetching(true);
