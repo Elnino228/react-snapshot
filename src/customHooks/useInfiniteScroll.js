@@ -15,6 +15,7 @@ const useInfiniteScroll = (option, funcLoadData) => {
     }, []);
 
     useEffect(() => {
+        console.log(keySearch)
         setPage(startPage);
         funcLoadData(keySearch, startPage);
         // eslint-disable-next-line

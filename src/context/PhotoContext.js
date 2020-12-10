@@ -1,13 +1,14 @@
 import React, {createContext, useEffect, useState} from "react";
 import axios from "axios";
 import {apiKey} from "../api/config";
+import * as Constant from "../Constants/Constants";
 
 export const PhotoContext = createContext();
 
 const PhotoContextProvider = props => {
     const [images, setImages] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [keySearch, setKeySearch] = useState('mountain');
+    const [keySearch, setKeySearch] = useState(Constant.DEFAULT_SEARCH);
     const service = {};
     service.runSearch = (query, page = 1, perPage = 24) => {
         console.log(query, page);
@@ -41,7 +42,7 @@ const PhotoContextProvider = props => {
             )
             .then(response => {
                 setLoading(false);
-                return  response.data;
+                return response.data;
             })
             .catch(error => {
                 setLoading(false);
@@ -52,7 +53,7 @@ const PhotoContextProvider = props => {
             });
     };
     return (
-        <PhotoContext.Provider value={{keySearch, images, loading, service}}>
+        <PhotoContext.Provider value={{images, loading, service}}>
             {props.children}
         </PhotoContext.Provider>
     );

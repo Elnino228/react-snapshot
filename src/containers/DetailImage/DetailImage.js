@@ -8,6 +8,7 @@ import Gallery from "../Gallery/Gallery";
 
 export default function DetailImage(props) {
     const {imageId} = useParams();
+    console.log(imageId)
     const {images, service} = useContext(PhotoContext);
     const image = images.find(it => it.id === imageId);
     const [imageUrl, setImageUrl] = useState('');

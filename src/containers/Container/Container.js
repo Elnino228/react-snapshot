@@ -1,14 +1,15 @@
-import React from "react";
+import React, {useEffect} from "react";
 import SearchForm from "../SearchForm/SearchForm";
 import Navigator from "../Navigator/Navigator";
 import Gallery from "../Gallery/Gallery";
-import {Route, Switch, useRouteMatch} from "react-router-dom";
+import {Route, Switch, useRouteMatch, useParams} from "react-router-dom";
 import DetailImage from "../DetailImage/DetailImage";
 import Banner from "../Banner/Banner";
 import './Container.scss'
 
-export default function Container({keySearch}) {
+export default function Container(props) {
     const {path} = useRouteMatch();
+    const {tag, keySearch} = useParams();
 
     return (
         <div className={'container'}>
@@ -21,7 +22,7 @@ export default function Container({keySearch}) {
                     <Banner/>
                     <SearchForm/>
                     <Navigator/>
-                    <h2>{keySearch} Pictures</h2>
+                    <h2>{keySearch || tag} Pictures</h2>
                     <Gallery/>
                 </Route>
             </Switch>

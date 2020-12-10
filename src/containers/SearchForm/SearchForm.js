@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import './SearchForm,.scss'
 import {useHistory, useParams} from 'react-router-dom';
 
@@ -16,6 +16,7 @@ export default function SearchForm(props) {
         e.preventDefault();
         e.currentTarget.reset();
         let url = `/search/${input}`;
+        console.log(url);
         history.push(url);
     };
 
