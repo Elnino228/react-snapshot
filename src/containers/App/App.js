@@ -8,6 +8,7 @@ import Loader from "../Loader/Loader";
 import {useSelector} from "react-redux";
 import Header from "../Header/Header";
 import * as Constant from "../../Constants/Constants";
+import ScrollToTop from "../../components/ScrollToTop";
 
 export default function App() {
     const theme = useSelector(state => state.theme);
@@ -16,6 +17,7 @@ export default function App() {
         <PhotoContextProvider>
             <div className={`app ${theme}`}>
                 <BrowserRouter basename={'snapshot'}>
+                    <ScrollToTop/>
                     <Loader/>
                     <Header/>
                     <div className={'header-hide'}> </div>
@@ -24,10 +26,6 @@ export default function App() {
                             exact
                             path={'/'}
                             render={() => <Redirect to={`/${Constant.DEFAULT_SEARCH}`}/>}
-                        />
-                        <Route
-                            path={'/search/:keySearch'}
-                            render={() => (<Container/>)}
                         />
                         <Route
                             path={'/:tag'}

@@ -8,7 +8,6 @@ import Gallery from "../Gallery/Gallery";
 
 export default function DetailImage(props) {
     const {imageId} = useParams();
-    console.log(imageId)
     const {images, service} = useContext(PhotoContext);
     const image = images.find(it => it.id === imageId);
     const [imageUrl, setImageUrl] = useState('');
@@ -22,12 +21,14 @@ export default function DetailImage(props) {
     useEffect(() => {
         const getDetailPhoto = async () => {
             let rs = await service.getDetailPhoto(imageId);
-            console.log(rs);
             console.log(rs.sizes.size);
 
             if (rs && rs.stat === 'ok') {
                 if (rs && rs.sizes && rs.sizes.size) {
-                    let info = getInfoImageBySize(Constants.SIZE_LIST.MEDIUM, rs.sizes.size);
+                    let info =
+                        getInfoImageBySize(Constants.SIZE_LIST.MEDIUM, rs.sizes.size) ||
+                        getInfoImageBySize(Constants.SIZE_LIST.MEDIUM_640, rs.sizes.size) ||
+                        getInfoImageBySize(Constants.SIZE_LIST.MEDIUM_800, rs.sizes.size);
                     setImageUrl(info.source);
                     setWidth(info.width);
                     setHeight(info.height);
@@ -38,10 +39,9 @@ export default function DetailImage(props) {
         getDetailPhoto();
     }, [imageUrl]);
     return (
-
         <div className={'detail-container'}>
             <div className={'gallery-side'}>
-                <Gallery />
+                <Gallery/>
             </div>
             <div className={'detail-image'}>
                 <img src={imageUrl} alt={(image && image.title) || ''} width={width} height={height}/>

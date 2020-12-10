@@ -1,4 +1,5 @@
-$header_height : 50px;
+@import "src/styles/variables";
+
 .header-hide {
   height: $header_height;
 }

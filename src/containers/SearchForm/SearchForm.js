@@ -3,8 +3,7 @@ import './SearchForm,.scss'
 import {useHistory, useParams} from 'react-router-dom';
 
 export default function SearchForm(props) {
-    const {keySearch} = useParams();
-    let initialInput = keySearch === null || keySearch === undefined ? '' : keySearch;
+    let initialInput =  '';
     let [input, setInput] = useState(initialInput);
     let handleOnChange = (e) => {
         setInput(e.target.value);
@@ -15,8 +14,7 @@ export default function SearchForm(props) {
     let handleSubmit = (e) => {
         e.preventDefault();
         e.currentTarget.reset();
-        let url = `/search/${input}`;
-        console.log(url);
+        let url = `/${input}`;
         history.push(url);
     };
 
@@ -27,8 +25,9 @@ export default function SearchForm(props) {
             action="">
             <input type="text" placeholder={'Search ...'} onChange={handleOnChange} value={input}/>
             <button
-                className={input.trim() || keySearch && keySearch.trim() ? 'active' : ''}
-                disabled={!input.trim() || keySearch && keySearch.trim()}
+                type={'submit'}
+                className={input.trim()? 'active' : ''}
+                disabled={!input.trim()}
             >
                 <svg height="32" width="32">
                     <path

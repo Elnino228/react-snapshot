@@ -9,7 +9,7 @@ import './Container.scss'
 
 export default function Container(props) {
     const {path} = useRouteMatch();
-    const {tag, keySearch} = useParams();
+    const {tag} = useParams();
 
     return (
         <div className={'container'}>
@@ -22,7 +22,7 @@ export default function Container(props) {
                     <Banner/>
                     <SearchForm/>
                     <Navigator/>
-                    <h2>{keySearch || tag} Pictures</h2>
+                    <h2>{tag} Pictures</h2>
                     <Gallery/>
                 </Route>
             </Switch>

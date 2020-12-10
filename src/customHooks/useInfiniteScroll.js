@@ -1,5 +1,6 @@
 import {useEffect, useState} from "react";
-import {useLocation} from 'react-router-dom';
+import styles from '../styles/_variables.scss';
+import $ from 'jquery';
 
 const useInfiniteScroll = (option, funcLoadData) => {
     const {keySearch, startPage} = option;
@@ -7,15 +8,16 @@ const useInfiniteScroll = (option, funcLoadData) => {
     const [page, setPage] = useState(startPage);
 
     useEffect(() => {
+        $(".gallery").parent().css("overflow", "auto", "height", window.innerHeight - styles.headerHeight);
         window.addEventListener('scroll', handleScroll);
         return () => {
-            console.log('unmount')
+            console.log('unmount');
+            $(".gallery").parent().css("overflow", "", "height", `auto`);
             window.removeEventListener('scroll', handleScroll)
         };
     }, []);
 
     useEffect(() => {
-        console.log(keySearch)
         setPage(startPage);
         funcLoadData(keySearch, startPage);
         // eslint-disable-next-line
