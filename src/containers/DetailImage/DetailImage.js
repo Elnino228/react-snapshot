@@ -1,15 +1,18 @@
 import React, {useContext, useEffect, useState} from "react";
-import {useParams} from 'react-router-dom';
+import {useHistory, useParams, useRouteMatch} from 'react-router-dom';
 import {PhotoContext} from "../../context/PhotoContext";
-import * as Util from "../../Util/Util";
 import './DetailImage.scss'
 import * as Constants from "../../Constants/Constants";
 import Gallery from "../Gallery/Gallery";
 
 export default function DetailImage(props) {
     const {imageId} = useParams();
-    const {images, service} = useContext(PhotoContext);
-    const image = images.find(it => it.id === imageId);
+    const history = useHistory();
+    const a = useRouteMatch();
+    console.log(a);
+    const {images, loading, service} = useContext(PhotoContext);
+
+    const [image, setImage] = useState({id: imageId, width: 0, height: 0, title: '', src: ''});
     const [imageUrl, setImageUrl] = useState('');
     const [width, setWidth] = useState(0);
     const [height, setHeight] = useState(0);
@@ -17,10 +20,6 @@ export default function DetailImage(props) {
     const getInfoImageBySize = (strSize, arrData) => {
         return arrData.find(it => it.label === strSize);
     };
-
-    useEffect(()=>{
-        console.log(imageId)
-    })
 
     useEffect(() => {
         const getDetailPhoto = async () => {
@@ -33,22 +32,45 @@ export default function DetailImage(props) {
                         getInfoImageBySize(Constants.SIZE_LIST.MEDIUM, rs.sizes.size) ||
                         getInfoImageBySize(Constants.SIZE_LIST.MEDIUM_640, rs.sizes.size) ||
                         getInfoImageBySize(Constants.SIZE_LIST.MEDIUM_800, rs.sizes.size);
-                    setImageUrl(info.source);
-                    setWidth(info.width);
-                    setHeight(info.height);
+                    // setImageUrl(info.source);
+                    // setWidth(info.width);
+                    // setHeight(info.height);
+                    let tempImage = images.find(it => it.id === imageId);
+                    setImage({
+                        id: imageId,
+                        width: info.width,
+                        height: info.height,
+                        title: (tempImage && tempImage.title) || '',
+                        src: info.source
+                    });
                 }
             }
         };
 
         getDetailPhoto();
-    }, [imageId]);
+    }, [imageId, image.id, image.width, image.height, image.title, image.src]);
+
+    const plusSlide = (step) => {
+        let currentIndex = images.findIndex(it => it.id === imageId);
+        history.replace()
+
+    };
+
     return (
         <div className={'detail-container'}>
             <div className={'gallery-side'}>
                 <Gallery data={images}/>
             </div>
             <div className={'detail-image'}>
-                <img src={imageUrl} alt={(image && image.title) || ''} width={width} height={height}/>
+                <div className={'frame-image'}>
+                    <img src={imageUrl} alt={(image && image.title) || ''}/>
+                </div>
+                <div className={'switch-btn-wrapped'}>
+                    <a className={'prev'} onClick={() => plusSlide(-1)}
+                       style={{display: loading ? 'none' : 'block'}}>&#10094;</a>
+                    <a className={'next'} onClick={() => plusSlide(1)}
+                       style={{display: loading ? 'none' : 'block'}}>&#10095;</a>
+                </div>
             </div>
         </div>
     )
