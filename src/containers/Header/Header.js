@@ -3,6 +3,7 @@ import './Header.scss'
 import {useDispatch, useSelector} from "react-redux";
 import * as themeAction from '../../redux/actions/themeAction'
 import {Link} from "react-router-dom";
+import {openSidebar} from "../Sidebar/Sidebar";
 
 export default function Header() {
     const dispatch = useDispatch();
@@ -12,6 +13,7 @@ export default function Header() {
     const theme = useSelector(state => state.theme);
     return (
         <div className={'header'} style={{backgroundColor: theme === 'light' ? 'black' : 'white'}}>
+            <span className={'sidebar-open-btn'} onClick={openSidebar}>&#9776;</span>
             <div className={'brand-name'}>
                 <Link to={'/mountain'}>
                     <span style={{color: 'red'}}>Red</span><span style={{color: theme === 'light' ? 'white' : 'black'}}>D store</span>

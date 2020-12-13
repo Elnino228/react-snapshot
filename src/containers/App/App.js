@@ -9,6 +9,7 @@ import {useSelector} from "react-redux";
 import Header from "../Header/Header";
 import * as Constant from "../../Constants/Constants";
 import ScrollToTop from "../../components/ScrollToTop";
+import Sidebar from "../Sidebar/Sidebar";
 
 export default function App() {
     const theme = useSelector(state => state.theme);
@@ -20,6 +21,7 @@ export default function App() {
                     <ScrollToTop/>
                     <Loader/>
                     <Header/>
+                    <Sidebar/>
                     <div className={'header-hide'}> </div>
                     <Switch>
                         <Route

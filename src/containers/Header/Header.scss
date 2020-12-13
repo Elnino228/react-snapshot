@@ -6,7 +6,7 @@
 .header {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: left;
   align-items: center;
   height: $header_height;
   background-color: black;
@@ -14,11 +14,22 @@
   top: 0;
   left: 0;
   right: 0;
-  z-index: 111;
+  z-index: 1;
+  .sidebar-open-btn {
+    display: block;
+    font-size: 2rem;
+    color: white;
+    padding: 0 10px 5px 10px;
+    position: relative;
+    z-index: 1;
+    cursor: pointer;
+  }
   .brand-name {
     font-family: 'MuseoModerno', cursive, Helvetica, Arial, sans-serif;
     font-size: 2rem;
-    margin-left: 1rem;
+    //margin-left: 1rem;
+    width: 100%;
+    text-align: left;
     a {
       text-decoration: none;
     }
