@@ -21,5 +21,19 @@
 <noscript>You need to enable JavaScript to run this app.</noscript>
 <div id="root"></div>
 <!--    <span class="forkongithub"><a href="https://github.com/Yog9/SnapShot">Fork me on GitHub</a></span>-->
+<script>
+    $('.modal-content').resizable({
+        //alsoResize: ".modal-dialog",
+        minHeight: 300,
+        minWidth: 300
+    });
+    $('.modal-dialog').draggable();
+
+    $('#myModal').on('show.bs.modal', function() {
+        $(this).find('.modal-body').css({
+            'max-height': '100%'
+        });
+    });
+</script>
 </body>
 </html>

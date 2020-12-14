@@ -2,12 +2,14 @@ import React, {useContext, useEffect} from "react";
 import SearchForm from "../SearchForm/SearchForm";
 import Navigator from "../Navigator/Navigator";
 import Gallery from "../Gallery/Gallery";
-import {Route, Switch, useRouteMatch, useParams} from "react-router-dom";
+import {Route, Switch, useRouteMatch, useParams, BrowserRouter} from "react-router-dom";
 import DetailImage from "../DetailImage/DetailImage";
 import Banner from "../Banner/Banner";
 import './Container.scss'
 import {PhotoContext} from "../../context/PhotoContext";
 import useInfiniteScroll from "../../customHooks/useInfiniteScroll";
+import {showDialog} from "../../components/Dialog/Dialog";
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 export default function Container(props) {
     const {path} = useRouteMatch();
