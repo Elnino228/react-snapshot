@@ -10,13 +10,12 @@ export default function Header() {
     const handleSwitchTheme = () => {
         dispatch(themeAction.switchTheme());
     };
-    const theme = useSelector(state => state.theme);
     return (
-        <div className={'header'} style={{backgroundColor: theme === 'light' ? 'black' : 'white'}}>
-            <span className={'sidebar-open-btn'} onClick={openSidebar}>&#9776;</span>
-            <div className={'brand-name'}>
+        <div id={'myHeader'} className={'header'}>
+            <span id={'mySidebarOpenBtn'} className={'sidebar-open-btn'} onClick={openSidebar}>&#9776;</span>
+            <div id={'myBrandName'} className={'brand-name'}>
                 <Link to={'/mountain'}>
-                    <span style={{color: 'red'}}>Red</span><span style={{color: theme === 'light' ? 'white' : 'black'}}>D store</span>
+                    <span style={{color: 'red'}}>Red</span><span>D store</span>
                 </Link>
             </div>
             <div className={'toggle-theme'}>

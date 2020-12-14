@@ -29,6 +29,6 @@ export default function ScrollToTop() {
     }, [pathname]);
 
     return (
-        <button className={'btnToTop'}/>
+        <button id={'myBtnToTop'} className={'btnToTop'}/>
     );
 }
