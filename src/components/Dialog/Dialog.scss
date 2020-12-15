@@ -1,26 +1,187 @@
+@import "../../styles/variables";
 
 .modal-container {
   position: fixed;
-  top: 20%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #d7dbdf;
   z-index: 4;
+
   .modal {
-    width: 50%;
+    position: relative;
+    top: 100px;
+    width: 500px;
     margin: auto;
-    box-shadow: 4px 4px 12px 0px #00000066;
+    box-shadow: 4px 4px 12px 0 #00000066;
+    overflow: hidden;
+    border-radius: 5px;
+
     .modal-header, .modal-footer {
       position: relative;
-      display: block;
-      text-align: center;
-      width: 100%;
-      height: 50px;
+      display: flex;
+      align-items: center;
+      padding: 8px 16px;
+      color: white;
+      //width: 100%;
+      height: $modal_header-height;
       background-color: #61dafb;
-      border-radius: 10px 10px 0 0;
     }
+
+    .modal-header {
+      cursor: move;
+
+      .title {
+        text-align: left;
+        width: 100%;
+      }
+
+      .wrapper-btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        z-index: 5;
+
+        a {
+          display: inline-block;
+          width: 2rem;
+          height: 2rem;
+          margin: 0 2.5px;
+          padding: 5px;
+          cursor: pointer;
+
+          &:hover {
+            background-color: rgba(0, 0, 0, 0.2);
+          }
+
+          &:nth-child(3):hover {
+            background-color: rgba(255, 0, 0, 1);
+          }
+        }
+
+        .minimize-btn {
+          i {
+            vertical-align: super;
+            font-weight: 100;
+            font-size: 0.9rem;
+          }
+        }
+
+        .expand-btn {
+          i {
+            vertical-align: -webkit-baseline-middle;
+          }
+        }
+
+        .close-btn {
+          i {
+            vertical-align: -webkit-baseline-middle;
+          }
+        }
+      }
+    }
+
     .modal-footer {
-      border-radius: 0 0 10px 10px;
+      justify-content: flex-end;
+
+      button {
+        display: block;
+        width: 70px;
+        height: 25px;
+        padding: 0;
+        border-radius: 3px;
+        cursor: pointer;
+        background-color: #FFEACF;
+        box-shadow: 1px 1px 2px 0px #00000066;
+
+        &:nth-child(1) {
+          margin-right: 10px;
+        }
+
+        outline: none;
+        border: none;
+      }
     }
+
     .modal-body {
+      position: relative;
+      height: calc(100% - 2 * #{$modal_header-height});
+      width: 100%;
+      text-align: justify;
+      line-height: 30px;
       background-color: white;
+      padding: 8px 16px;
+    }
+
+    .side {
+      position: absolute;
+      display: block;
+    }
+
+    .top {
+      top: 0;
+      left: 5px;
+      right: 5px;
+      height: 2px;
+      cursor: n-resize;
+    }
+
+    .bottom {
+      bottom: 0;
+      left: 5px;
+      right: 5px;
+      height: 2px;
+      cursor: n-resize;
+    }
+
+    .left {
+      top: 5px;
+      bottom: 5px;
+      left: 0;
+      width: 2px;
+      cursor: e-resize;
+    }
+
+    .right {
+      top: 5px;
+      bottom: 5px;
+      right: 0;
+      width: 2px;
+      cursor: e-resize;
+    }
+
+    .top-left {
+      top: 0;
+      left: 0;
+      width: 5px;
+      height: 5px;
+      cursor: nw-resize;
+    }
+
+    .top-right {
+      top: 0;
+      right: 0;
+      width: 5px;
+      height: 5px;
+      cursor: ne-resize;
+    }
+
+    .bottom-left {
+      bottom: 0;
+      left: 0;
+      width: 5px;
+      height: 5px;
+      cursor: sw-resize;
+    }
+
+    .bottom-right {
+      bottom: 0;
+      right: 0;
+      width: 5px;
+      height: 5px;
+      cursor: se-resize;
     }
   }
 }

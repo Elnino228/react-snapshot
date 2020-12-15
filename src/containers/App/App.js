@@ -21,10 +21,6 @@ export default function App() {
                 <BrowserRouter basename={'snapshot'}>
                     <ScrollToTop/>
                     <Loader/>
-                    <button type="button" className="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-                        Launch demo modal
-                    </button>
-                    <Dialog />
                     <Header/>
                     <Sidebar/>
                     <div className={'header-hide'}> </div>
@@ -33,6 +29,10 @@ export default function App() {
                             exact
                             path={'/'}
                             render={() => <Redirect to={`/${Constant.DEFAULT_SEARCH}`}/>}
+                        />
+                        <Route
+                            path={'/dialog'}
+                            render={() => <Dialog/>}
                         />
                         <Route
                             path={'/:tag'}

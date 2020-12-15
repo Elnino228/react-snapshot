@@ -7,7 +7,7 @@ export const PhotoContext = createContext();
 
 const PhotoContextProvider = props => {
     const [images, setImages] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const [keySearch, setKeySearch] = useState(Constant.DEFAULT_SEARCH);
     const [page, setPage] = useState(1);
 

@@ -9,7 +9,6 @@ import './Container.scss'
 import {PhotoContext} from "../../context/PhotoContext";
 import useInfiniteScroll from "../../customHooks/useInfiniteScroll";
 import {showDialog} from "../../components/Dialog/Dialog";
-import 'bootstrap/dist/css/bootstrap.min.css'
 
 export default function Container(props) {
     const {path} = useRouteMatch();
