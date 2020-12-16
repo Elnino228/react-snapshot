@@ -56,13 +56,13 @@ export default class Dialog extends Component {
                 $modal.css({
                     top: document.documentElement.clientHeight - $modal.height()
                 });
-            if ($modal.position().left < -(document.documentElement.clientWidth / 2 - $modal.width() / 2))
+            if ($modal.position().left < 0)
                 $modal.css({
-                    left: -(document.documentElement.clientWidth / 2 - $modal.width() / 2)
+                    left: 0
                 });
-            if ($modal.position().left > (document.documentElement.clientWidth / 2 - $modal.width() / 2))
+            if ($modal.position().left > document.documentElement.clientWidth - $modal.width())
                 $modal.css({
-                    left: document.documentElement.clientWidth / 2 - $modal.width() / 2
+                    left: document.documentElement.clientWidth - $modal.width()
                 });
         };
         $(document).on('mousemove', function (e) {
@@ -77,18 +77,19 @@ export default class Dialog extends Component {
         e.preventDefault();
         let $modal = $('#myModal');
         if ($modal) {
-            if ($modal.width() === window.screen.width) {
+            if (Math.floor($modal.width()) === window.innerWidth || Math.ceil($modal.width()) === window.innerWidth) {
                 $modal.css({
                     top: '10%',
+                    left: window.innerWidth / 2 - 500 / 2,
                     width: '500px',
-                    height: '400px'
+                    height: 'auto'
                 });
             } else {
                 $modal.css({
                     top: 0,
                     left: 0,
-                    width: '100vw',
-                    height: '100vh'
+                    width: '100%',
+                    height: '100%'
                 });
             }
         }
@@ -104,6 +105,48 @@ export default class Dialog extends Component {
         e.preventDefault();
         let $modal = $('#myModal');
         let startPosX = e.clientX, startPosY = e.clientY, offsetX = 0, offsetY = 0;
+        let minWidth = +$modal.css('min-width').replace(/\D/g, '');
+        let minHeight = +$modal.css('min-height').replace(/\D/g, '');
+        let maxLeft = $modal.position().left + $modal.width() - minWidth;
+        let resizeLeft = (offsetX) => {
+            if ($modal.position().left >= 0) {
+                if ($modal.width() > minWidth) {
+                    if ($modal.width() + offsetX > minWidth) {
+                        $modal.css({
+                            width: $modal.width() + offsetX + 'px',
+                            height: $modal.height() + 'px',
+                            left: $modal.position().left - offsetX,
+                        });
+
+                    } else {
+                        if (offsetX > 0) {
+                            let rest = $modal.width() - minWidth;
+                            $modal.css({
+                                width: minWidth + 'px',
+                                height: $modal.height() + 'px',
+                                left: $modal.position().left + rest,
+                            });
+                        }
+                    }
+                } else if ($modal.width() === minWidth) {
+                    $modal.css({
+                        width: $modal.width() + offsetX + 'px',
+                        height: $modal.height() + 'px',
+                    });
+                }
+            }
+        };
+        let resizeRight = (offsetX) => {
+            $modal.css({
+                width: $modal.width() + offsetX + 'px',
+                height: $modal.height() + 'px'
+            });
+        };
+        let resizeBottom = (offsetY) => {
+            $modal.css({
+                height: $modal.height() + offsetY + 'px'
+            });
+        };
         let resize = (e, direction) => {
             offsetX = startPosX - e.clientX;
             offsetY = startPosY - e.clientY;
@@ -111,75 +154,60 @@ export default class Dialog extends Component {
             startPosY = e.clientY;
             switch (direction) {
                 case 'left':
-                    offsetX = offsetX;
-                    console.log($modal.position().right)
-                    $modal.css({
-                        width: $modal.width() + offsetX + 'px',
-                        height: $modal.height() + 'px',
-                        left: $modal.position().left - offsetX,
-                    });
+                    if ($modal.position().left > 0)
+                        resizeLeft(offsetX);
+                    else {
+                        console.log(offsetX);
+                        $modal.css({
+                            left:0,
+                            width:$modal.width(),
+                            height:$modal.height()
+                        });
+                        if (offsetX <= 0) {
+                            resizeLeft(offsetX);
+                        }
+                    }
                     break;
                 case 'right':
-                    offsetX = -offsetX;
-                    console.log(offsetX)
-                    $modal.css({
-                        width: $modal.width() + offsetX + 'px',
-                        height: $modal.height() + 'px'
-                    });
+                    resizeRight(-offsetX);
                     break;
                 case 'bottom':
-                    offsetY = -offsetY;
-                    console.log(offsetY)
-                    console.log($modal.height())
-                    $modal.css({
-                        width: $modal.width() + 'px',
-                        height: $modal.height() + offsetY + 'px'
-                    });
+                    resizeBottom(-offsetY);
                     break;
                 case 'bottom-left':
-                    offsetX = offsetX;
-                    offsetY = -offsetY;
-                    console.log(offsetY)
-                    console.log(offsetY)
-                    $modal.css({
-                        width: $modal.width() + offsetX + 'px',
-                        height: $modal.height() + offsetY + 'px',
-                        left: $modal.position().left - offsetX,
-                    });
+                    resizeLeft(offsetX);
+                    resizeBottom(-offsetY);
                     break;
                 case 'bottom-right':
-                    offsetX = -offsetX;
-                    offsetY = -offsetY;
-                    console.log(offsetY)
-                    $modal.css({
-                        width: $modal.width() + offsetY + 'px',
-                        height: $modal.height() + offsetY + 'px'
-                    });
+                    resizeRight(-offsetX);
+                    resizeBottom(-offsetY);
                     break
 
             }
         };
         let limitInViewPort = () => {
-            if ($modal.position().top < 0)
+            if ($modal.position().left < 0)
                 $modal.css({
-                    top: 0
+                    left: 0,
+                    width: $modal.width(),
+                    height: $modal.height()
                 });
-            if ($modal.position().top > (document.documentElement.clientHeight - $modal.height()))
-                $modal.css({
-                    top: document.documentElement.clientHeight - $modal.height()
-                });
-            if ($modal.position().left < -(document.documentElement.clientWidth / 2 - $modal.width() / 2))
-                $modal.css({
-                    left: -(document.documentElement.clientWidth / 2 - $modal.width() / 2)
-                });
-            if ($modal.position().left > (document.documentElement.clientWidth / 2 - $modal.width() / 2))
-                $modal.css({
-                    left: document.documentElement.clientWidth / 2 - $modal.width() / 2
-                });
+            // if ($modal.position().top > (document.documentElement.clientHeight - $modal.height()))
+            //     $modal.css({
+            //         top: document.documentElement.clientHeight - $modal.height()
+            //     });
+            // if ($modal.position().left < -(document.documentElement.clientWidth / 2 - $modal.width() / 2))
+            //     $modal.css({
+            //         left: -(document.documentElement.clientWidth / 2 - $modal.width() / 2)
+            //     });
+            // if ($modal.position().left > (document.documentElement.clientWidth / 2 - $modal.width() / 2))
+            //     $modal.css({
+            //         left: document.documentElement.clientWidth / 2 - $modal.width() / 2
+            //     });
         };
         $(document).on('mousemove', function (e) {
             resize(e, direction);
-            // limitInViewPort();
+            limitInViewPort();
         }).mouseup(function () {
             $(this).off('mousemove')
         });
