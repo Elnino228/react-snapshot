@@ -6,14 +6,17 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #d7dbdf;
+  //background-color: #d7dbdf;
   z-index: 4;
 
   .modal {
     position: relative;
     top: 100px;
-    width: 500px;
-    margin: auto;
+    left: calc(50% - #{$modal_default_width} / 2);
+    width: $modal_default_width;
+    min-width: $modal_min_width;
+    min-height: $modal_min_height;
+    //margin: auto;
     box-shadow: 4px 4px 12px 0 #00000066;
     overflow: hidden;
     border-radius: 5px;
@@ -96,6 +99,10 @@
         background-color: #FFEACF;
         box-shadow: 1px 1px 2px 0px #00000066;
 
+        &:hover {
+          background-color: #ffd59f;
+        }
+
         &:nth-child(1) {
           margin-right: 10px;
         }
@@ -124,7 +131,7 @@
       top: 0;
       left: 5px;
       right: 5px;
-      height: 2px;
+      height: $modal_width_side;
       cursor: n-resize;
     }
 
@@ -132,7 +139,7 @@
       bottom: 0;
       left: 5px;
       right: 5px;
-      height: 2px;
+      height: $modal_width_side;
       cursor: n-resize;
     }
 
@@ -140,7 +147,7 @@
       top: 5px;
       bottom: 5px;
       left: 0;
-      width: 2px;
+      width: $modal_width_side;
       cursor: e-resize;
     }
 
@@ -148,7 +155,7 @@
       top: 5px;
       bottom: 5px;
       right: 0;
-      width: 2px;
+      width: $modal_width_side;
       cursor: e-resize;
     }
 

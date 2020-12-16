@@ -1,5 +1,10 @@
 $header_height: 50px;
 $modal_header-height:45px;
+$modal_default_width:500px;
+$modal_default_height:400px;
+$modal_width_side: 4px;
+$modal_min_width:300px;
+$modal_min_height:200px;
 
 :export {
   headerHeight: $header_height
