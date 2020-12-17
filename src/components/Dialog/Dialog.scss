@@ -6,7 +6,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  //background-color: #d7dbdf;
+  background-color: rgba(0, 0, 0, 0.2);
   z-index: 4;
 
   .modal {
@@ -59,7 +59,7 @@
             background-color: rgba(0, 0, 0, 0.2);
           }
 
-          &:nth-child(3):hover {
+          &:last-child:hover {
             background-color: rgba(255, 0, 0, 1);
           }
         }
@@ -103,7 +103,7 @@
           background-color: #ffd59f;
         }
 
-        &:nth-child(1) {
+        &:nth-child(odd) {
           margin-right: 10px;
         }
 

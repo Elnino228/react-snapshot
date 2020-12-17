@@ -73,18 +73,23 @@ export default class Dialog extends Component {
         });
     };
 
+    originWidth = 0;
+    originHeight = 0;
+
     handleExpandDialog = (e) => {
         e.preventDefault();
         let $modal = $('#myModal');
         if ($modal) {
-            if (Math.floor($modal.width()) === window.innerWidth || Math.ceil($modal.width()) === window.innerWidth) {
+            if (Math.floor($modal.width()) === document.documentElement.clientWidth || Math.ceil($modal.width()) === document.documentElement.clientWidth) {
                 $modal.css({
                     top: '10%',
-                    left: window.innerWidth / 2 - 500 / 2,
-                    width: '500px',
-                    height: 'auto'
+                    left: document.documentElement.clientWidth / 2 - this.originWidth / 2,
+                    width: this.originWidth ,
+                    height: this.originHeight
                 });
             } else {
+                this.originWidth = $modal.width();
+                this.originHeight = $modal.height();
                 $modal.css({
                     top: 0,
                     left: 0,
@@ -106,8 +111,7 @@ export default class Dialog extends Component {
         let $modal = $('#myModal');
         let startPosX = e.clientX, startPosY = e.clientY, offsetX = 0, offsetY = 0;
         let minWidth = +$modal.css('min-width').replace(/\D/g, '');
-        let minHeight = +$modal.css('min-height').replace(/\D/g, '');
-        let maxLeft = $modal.position().left + $modal.width() - minWidth;
+
         let resizeLeft = (offsetX) => {
             if ($modal.position().left >= 0) {
                 if ($modal.width() > minWidth) {
@@ -147,6 +151,48 @@ export default class Dialog extends Component {
                 height: $modal.height() + offsetY + 'px'
             });
         };
+
+        let limitLeft = (callbackFunction) => {
+            if ($modal.position().left > 0) {
+                if ($modal.position().left - offsetX > 0) {
+                    callbackFunction();
+                } else {
+                    let rest = $modal.position().left;
+                    $modal.css({
+                        width: $modal.width() + rest + 'px',
+                        height: $modal.height() + 'px',
+                        left: 0,
+                    });
+                }
+            } else if ($modal.position().left === 0) {
+                if (offsetX < 0) {
+                    callbackFunction();
+                }
+            }
+        };
+
+        let limitRight = (callbackFunction) => {
+            if ($modal.position().left + $modal.width() + offsetY < document.documentElement.clientWidth || $modal.position().left + $modal.width() === document.documentElement.clientWidth) {
+                callbackFunction();
+            } else {
+                $modal.css({
+                    height: $modal.height() + 'px',
+                    width: document.documentElement.clientWidth - $modal.position().left + 'px',
+                });
+            }
+        };
+
+        let limitBottom = (callbackFunction) => {
+            if ($modal.position().top + $modal.height() + offsetY < document.documentElement.clientHeight || $modal.position().top + $modal.height() === document.documentElement.clientHeight) {
+                callbackFunction();
+            } else {
+                $modal.css({
+                    width: $modal.width() + 'px',
+                    height: document.documentElement.clientHeight - $modal.position().top + 'px',
+                });
+            }
+        };
+
         let resize = (e, direction) => {
             offsetX = startPosX - e.clientX;
             offsetY = startPosY - e.clientY;
@@ -154,60 +200,27 @@ export default class Dialog extends Component {
             startPosY = e.clientY;
             switch (direction) {
                 case 'left':
-                    if ($modal.position().left > 0)
-                        resizeLeft(offsetX);
-                    else {
-                        console.log(offsetX);
-                        $modal.css({
-                            left:0,
-                            width:$modal.width(),
-                            height:$modal.height()
-                        });
-                        if (offsetX <= 0) {
-                            resizeLeft(offsetX);
-                        }
-                    }
+                    limitLeft(() => resizeLeft(offsetX));
                     break;
                 case 'right':
-                    resizeRight(-offsetX);
+                    limitRight(() => resizeRight(-offsetX));
                     break;
                 case 'bottom':
-                    resizeBottom(-offsetY);
+                    limitBottom(() => resizeBottom(-offsetY));
                     break;
                 case 'bottom-left':
-                    resizeLeft(offsetX);
-                    resizeBottom(-offsetY);
+                    limitLeft(() => resizeLeft(offsetX));
+                    limitBottom(() => resizeBottom(-offsetY));
                     break;
                 case 'bottom-right':
-                    resizeRight(-offsetX);
-                    resizeBottom(-offsetY);
+                    limitRight(() => resizeRight(-offsetX));
+                    limitBottom(() => resizeBottom(-offsetY));
                     break
-
             }
         };
-        let limitInViewPort = () => {
-            if ($modal.position().left < 0)
-                $modal.css({
-                    left: 0,
-                    width: $modal.width(),
-                    height: $modal.height()
-                });
-            // if ($modal.position().top > (document.documentElement.clientHeight - $modal.height()))
-            //     $modal.css({
-            //         top: document.documentElement.clientHeight - $modal.height()
-            //     });
-            // if ($modal.position().left < -(document.documentElement.clientWidth / 2 - $modal.width() / 2))
-            //     $modal.css({
-            //         left: -(document.documentElement.clientWidth / 2 - $modal.width() / 2)
-            //     });
-            // if ($modal.position().left > (document.documentElement.clientWidth / 2 - $modal.width() / 2))
-            //     $modal.css({
-            //         left: document.documentElement.clientWidth / 2 - $modal.width() / 2
-            //     });
-        };
+
         $(document).on('mousemove', function (e) {
             resize(e, direction);
-            limitInViewPort();
         }).mouseup(function () {
             $(this).off('mousemove')
         });
@@ -220,9 +233,9 @@ export default class Dialog extends Component {
                     <div className={'modal-header'} onMouseDown={this.handleMoveDialog}>
                         <div className={'title'}><span>Modal header</span></div>
                         <div className={'wrapper-btn'}>
-                            <a className={'minimize-btn'} role={'button'}>
-                                <i className="fa fa-window-minimize" aria-hidden="true"/>
-                            </a>
+                            {/*<a className={'minimize-btn'} role={'button'}>*/}
+                            {/*    <i className="fa fa-window-minimize" aria-hidden="true"/>*/}
+                            {/*</a>*/}
                             <a className={'expand-btn'} role={'button'} onClick={this.handleExpandDialog}>
                                 <i className="far fa-window-restore"/>
                             </a>
