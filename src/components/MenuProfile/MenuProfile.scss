@@ -1,0 +1,42 @@
+@import "src/styles/variables";
+
+.menu-profile {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-self: baseline;
+  margin-right: 10px;
+  position: relative;
+  top: 14px;
+
+  .current-user {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    cursor: pointer;
+    margin-bottom: 20px;
+
+    span {
+      padding: 4px 5px 0 5px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+  }
+
+  .menu-profile-wrapper {
+    background-color: white;
+    color: black;
+    box-shadow: 3px 3px 5px 0 #9c9c9cc7, -1px -1px 5px #d2d2d2;
+
+    ul {
+      list-style: none;
+      text-align: left;
+      white-space: nowrap;
+      li {
+        padding: 8px;
+      }
+    }
+  }
+}

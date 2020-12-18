@@ -14,4 +14,9 @@ export const SIZE_LIST = {
     X_LARGE_3K: 'X-Large 3K',
     Original: 'Original'
 };
+export const ACTION_TYPES = {
+    UPDATE_USER: 'UPDATE_USER',
+    SWITCH_THEME: 'SWITCH_THEME'
+
+};
 export const DEFAULT_SEARCH = 'mountain';

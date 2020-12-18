@@ -1,5 +1,7 @@
+import {ACTION_TYPES} from "../../Constants/Constants";
+
 export const switchTheme = () => {
     return {
-        type: 'SWITCH_THEME'
+        type: ACTION_TYPES.SWITCH_THEME
     }
 };

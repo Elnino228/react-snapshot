@@ -11,14 +11,14 @@ export default class Sidebar extends Component {
 
     openNav = () => {
         document.getElementById("mySidenav").style.width = "250px";
-        document.getElementsByClassName("container")[0].style.marginLeft = "250px";
+        document.getElementsByClassName("app")[0].style.marginLeft = "250px";
         document.getElementsByClassName("header")[0].style.marginLeft = "250px";
         document.getElementsByClassName("sidebar-mask")[0].style.width = "100vw";
     };
 
     closeNav = () => {
         document.getElementById("mySidenav").style.width = "0";
-        document.getElementsByClassName("container")[0].style.marginLeft = "0";
+        document.getElementsByClassName("app")[0].style.marginLeft = "0";
         document.getElementsByClassName("header")[0].style.marginLeft = "0";
         document.getElementsByClassName("sidebar-mask")[0].style.width = "0";
     };

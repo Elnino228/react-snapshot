@@ -21,7 +21,7 @@ export default class Dialog extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isOpen: true,
+            isOpen: false,
             title: '',
             style: {},
             content: null
@@ -228,10 +228,10 @@ export default class Dialog extends Component {
 
     render() {
         return (
-            <div className={`modal-container ${this.state.isOpen ? 'enable' : 'hide'}`}>
+            <div className={`modal-container ${this.state.isOpen ? 'show' : 'hide'}`}>
                 <div id={'myModal'} className={'modal'}>
                     <div className={'modal-header'} onMouseDown={this.handleMoveDialog}>
-                        <div className={'title'}><span>Modal header</span></div>
+                        <div className={'title'}><span>{this.state.title}</span></div>
                         <div className={'wrapper-btn'}>
                             {/*<a className={'minimize-btn'} role={'button'}>*/}
                             {/*    <i className="fa fa-window-minimize" aria-hidden="true"/>*/}
@@ -244,19 +244,7 @@ export default class Dialog extends Component {
                             </a>
                         </div>
                     </div>
-                    <div className={'modal-body'}>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid architecto aspernatur aut
-                        commodi debitis dolor, dolorum explicabo facilis inventore iste mollitia nemo odio porro
-                        quibusdam, quisquam, quos saepe soluta veniam! Cupiditate doloribus eligendi enim error eum id
-                        natus odio officiis optio praesentium, quam, repellendus reprehenderit tenetur ut veritatis,
-                        vitae voluptatum. Assumenda cumque delectus earum impedit iure, magni pariatur sint. Corporis
-                        dicta distinctio esse eum facilis magnam modi odit quod. Architecto dolorum enim eum
-                        exercitationem explicabo harum iure optio veniam voluptatibus.
-                    </div>
-                    <div className={'modal-footer'}>
-                        <button onClick={this.handleCloseDialog}>Close</button>
-                        <button>Submit</button>
-                    </div>
+                    {this.state.content}
                     {/*<div className={'top side'}/>*/}
                     <div className={'right side'} onMouseDown={(e) => this.handleResize(e, 'right')}/>
                     <div className={'bottom side'} onMouseDown={(e) => this.handleResize(e, 'bottom')}/>

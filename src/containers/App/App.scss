@@ -1,5 +1,7 @@
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
@@ -87,4 +89,11 @@ body {
 
 .show {
   display: block;
+}
+
+.enable {
+  opacity: 1;
+}
+.disable {
+  opacity: 0;
 }
