@@ -5,6 +5,7 @@ import './DetailImage.scss'
 import * as Constants from "../../Constants/Constants";
 import Gallery from "../Gallery/Gallery";
 import $ from 'jquery';
+import useEffectKeyPress from "../../customHooks/useEffectKeyPress";
 
 export default function DetailImage() {
     const {imageId, tag} = useParams();
@@ -25,6 +26,23 @@ export default function DetailImage() {
             selectedImage.get(0).scrollIntoView({behavior: "smooth", block: "center", inline: "nearest"});
         }
     };
+
+    const plusSlide = (step) => {
+        let currentIndex = images.findIndex(it => it.id === imageId);
+        if (currentIndex + step < 0) return;
+        if (currentIndex + step >= images.length) {
+            service.runSearch(tag);
+        }
+        setCurrentIndexImage(currentIndex + step);
+    };
+
+    useEffectKeyPress((key) => {
+        if (key === 'ArrowLeft' || key === 'ArrowUp') {
+            plusSlide(-1);
+        } else if (key === 'ArrowRight' || key === 'ArrowDown') {
+            plusSlide(1);
+        }
+    }, [imageId]);
 
     useEffect(() => {
         const handleChangeImage = async () => {
@@ -52,7 +70,7 @@ export default function DetailImage() {
         handleChangeImage();
     }, [imageId]);
 
-    useEffect(()=>{
+    useEffect(() => {
         scrollBySelectedImage();
     }, [selectedImage]);
 
@@ -61,15 +79,6 @@ export default function DetailImage() {
             history.push(images[currentIndexImage].id)
         }
     }, [images, currentIndexImage]);
-
-    const plusSlide = (step) => {
-        let currentIndex = images.findIndex(it => it.id === imageId);
-        if (currentIndex + step < 0) return;
-        if (currentIndex + step >= images.length) {
-            service.runSearch(tag);
-        }
-        setCurrentIndexImage(currentIndex + step);
-    };
 
     return (
         <div className={'detail-container'}>

@@ -1,4 +1,5 @@
 import React from 'react';
+import './i18n/i18n'
 import ReactDOM from 'react-dom';
 import * as serviceWorker from './serviceWorker';
 import App from "./containers/App/App";
