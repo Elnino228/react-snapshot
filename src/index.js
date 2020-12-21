@@ -1,4 +1,5 @@
 import React, {Suspense} from 'react';
+import './i18n/i18n'
 import ReactDOM from 'react-dom';
 import {Provider, useSelector} from "react-redux";
 import {createStore} from "redux";
