@@ -2,8 +2,6 @@ import React, {Suspense} from 'react';
 import './i18n/i18n'
 import ReactDOM from 'react-dom';
 import {Provider, useSelector} from "react-redux";
-import {createStore} from "redux";
-import {rootReducer} from "./redux/reducer/rootReducer";
 import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
 import Loader from "./components/Loader/Loader";
 import Header from "./components/Header/Header";
@@ -14,11 +12,11 @@ import PrivateRoute from "./components/PrivateRoute";
 import App from "./containers/App/App";
 import Dialog from "./components/Dialog/Dialog";
 import PhotoContextProvider from "./context/PhotoContext";
+// import './index.css';
+import store from "./redux/store";
+
 // import App from './App';
 
-// import './index.css';
-
-const store = createStore(rootReducer);
 
 function AppPhoto() {
     const theme = useSelector(state => state.theme);

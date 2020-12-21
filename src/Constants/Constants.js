@@ -15,7 +15,8 @@ export const SIZE_LIST = {
     Original: 'Original'
 };
 export const ACTION_TYPES = {
-    UPDATE_USER: 'UPDATE_USER',
+    LOGIN: 'LOGIN',
+    LOGOUT: 'LOGOUT',
     SWITCH_THEME: 'SWITCH_THEME'
 
 };

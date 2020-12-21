@@ -3,7 +3,6 @@ import './LoginForm.scss'
 import {AuthenticationService} from "../../services/access/AuthenticationService";
 import {useHistory} from 'react-router-dom';
 import {hideDialog, showDialog} from "../../components/Dialog/Dialog";
-import * as userAction from '../../redux/actions/userAction'
 import {useDispatch} from "react-redux";
 
 export default function LoginForm() {
@@ -15,7 +14,7 @@ export default function LoginForm() {
         e.preventDefault();
         let rs = AuthenticationService.login(username, password);
         if (rs) {
-            dispatch(userAction.updateUser({username, password}));
+            // dispatch(userAction.login({username, password}));
             history.push('/');
         } else {
             let body = (

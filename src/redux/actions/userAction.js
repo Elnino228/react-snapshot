@@ -1,8 +1,14 @@
 import {ACTION_TYPES} from "../../Constants/Constants";
 
-export const updateUser = (data) => {
+export const login = (data) => {
     return {
-        type: ACTION_TYPES.UPDATE_USER,
+        type: ACTION_TYPES.LOGIN,
         payload: data
+    }
+};
+
+export const logout = (data) => {
+    return {
+        type: ACTION_TYPES.LOGOUT
     }
 };

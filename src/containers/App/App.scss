@@ -15,8 +15,9 @@ body {
 
 .app {
 }
+
 //$theme =  light or =  dark
-@mixin theme($theme : 'light'){
+@mixin theme($theme : 'light') {
   background-color: if($theme == 'light', white, black);
 
   #myHeader {
@@ -39,6 +40,16 @@ body {
   }
   #myBtnToTop {
     background-color: if($theme == 'light', #00000042, #ffffff1c);
+  }
+  #myMenuProfileWrapper {
+    box-shadow: if($theme == 'light', '3px 3px 5px 0 #9c9c9cc7, -1px -1px 5px #d2d2d2', none);
+  }
+  #myCurrentUser {
+    .svg-icon {
+      path {
+        fill: if($theme == 'light', white, black);
+      }
+    }
   }
 }
 
@@ -94,6 +105,7 @@ body {
 .enable {
   opacity: 1;
 }
+
 .disable {
   opacity: 0;
 }

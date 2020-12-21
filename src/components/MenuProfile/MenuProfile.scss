@@ -8,6 +8,7 @@
   margin-right: 10px;
   position: relative;
   top: 14px;
+  width: 12rem;
 
   .current-user {
     display: flex;
@@ -36,6 +37,7 @@
       white-space: nowrap;
       li {
         padding: 8px;
+        cursor: pointer;
       }
     }
   }
